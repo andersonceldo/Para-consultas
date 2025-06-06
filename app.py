@@ -31,7 +31,7 @@ def consultar_por_cedula(cedula):
 
         datos = {
             "nombre": info.get("APELLIDOS Y NOMBRES", "No disponible"),
-            "opcion": info.get("OPCION DE TITULACIÓN EX. COM./TIC/TT", "No especificada"),
+            "opcion": info.filter(like="OPCION DE TITULACIÓN", axis=0).values[0] if info.filter(like="OPCION DE TITULACIÓN", axis=0).values.size > 0 else "No especificada",
             "fecha": info["FECHA SIMPLE"].strftime("%d/%m/%Y") if fecha_defensa else "No programado",
             "hora": info.get("HORA", "No especificada"),
             "enlace": info.get("ENLACES", "#"),
