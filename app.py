@@ -30,7 +30,7 @@ def consultar_por_cedula(cedula):
         fecha_defensa = info["FECHA SIMPLE"].date() if pd.notna(info["FECHA SIMPLE"]) else None
 
         datos = {
-            "nombre": info.get("APELLIDOS Y NOMBRES", "No disponible"),
+            "nombre": info.filter(like="APELLIDOS Y NOMBRES ", axis=0).values[0] if info.filter(like="APELLIDOS Y NOMBRES ",
             "opcion": info.filter(like="OPCION DE TITULACIÓN", axis=0).values[0] if info.filter(like="OPCION DE TITULACIÓN", axis=0).values.size > 0 else "No especificada",
             "fecha": info["FECHA SIMPLE"].strftime("%d/%m/%Y") if fecha_defensa else "No programado",
             "hora": info.get("HORA", "No especificada"),
